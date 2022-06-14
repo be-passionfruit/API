@@ -2,6 +2,7 @@ const request = require('request');
 
 class HubspotController {
 
+    /** Contact */
     createContact = async (req, res, next) => {
         if (req.headers.authorization !== `TOKEN ${process.env.AUTH_TOKEN}`) {
             res.status(401).send('Unauthorized');
@@ -26,7 +27,6 @@ class HubspotController {
             if (error) throw new Error(error);
             console.log(body);
         });
-
         res.status(200).json(req.body);
     }
 }

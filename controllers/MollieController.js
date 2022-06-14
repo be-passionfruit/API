@@ -1,8 +1,13 @@
 class MollieController {
     
-    index = (req, res, next) => {
-        res.status(201).send('Mollie OK!');
-    }
+    /** Payment */
+
+    /** Order */
+
+    /** Mandate */
+
+    /** Customer */
+
 }
 
 module.exports = MollieController;

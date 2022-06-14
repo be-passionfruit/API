@@ -1,11 +1,8 @@
 const nodemailer = require('nodemailer');
 
 class UserController {
-    
-    index = (req, res, next) => {
-        res.status(201).send('API Connected');
-    }
 
+    /** Contact */
     contact = async (req, res, next) => {
         // 01 Check Auth Header
         if (req.headers.authorization !== `TOKEN ${process.env.AUTH_TOKEN}`) {
@@ -36,15 +33,19 @@ class UserController {
                 return;
             }
             
-            // 05 Send Reponse
             console.log(`Send: ${info.response}`);
+            
+            // 05 Send Reponse
+            res.status(201).json({
+                status: 'Send',
+                body: req.body
+            })
         });
-
-        // res.status(201).json({
-        //     status: 'Email sent!',
-        //     body: req.body,
-        // });
     }
+
+    /** Login */
+
+    /** Register */
 }
 
 module.exports = UserController;
