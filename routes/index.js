@@ -5,8 +5,6 @@ const userController = new UserController();
 const hubspotController = new HubspotController();
 
 const registerRoutes = (app) => {
-    //
-    app.get('/api', userController.index);
 
     app.post('/api/contact', userController.contact);
 
