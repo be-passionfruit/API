@@ -29,6 +29,9 @@ class HubspotController {
         });
         res.status(200).json(req.body);
     }
+
+
+    /** List */
 }
 
 module.exports = HubspotController;

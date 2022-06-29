@@ -22,7 +22,7 @@ class UserController {
         const options = {
             from: process.env.NODEMAILER_USER,
             to: process.env.NODEMAILER_USER,
-            subject: 'Nieuwe intake aanvraag.',
+            subject: 'Nieuw contact.',
             text: JSON.stringify(req.body),
         }
 
@@ -43,8 +43,8 @@ class UserController {
         });
     }
 
-    /** Login */
 
+    /** Login */
     /** Register */
 }
 

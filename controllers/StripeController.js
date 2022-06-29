@@ -8,22 +8,35 @@ class StripeController {
         if (req.headers.authorization !== `TOKEN ${process.env.AUTH_TOKEN}`) {
             res.status(401).send('Unauthorized');
         }
+
+        const { 
+            firstname, 
+            lastname, 
+            email, 
+            street, 
+            number, 
+            postal_code, 
+            city, 
+            state, 
+            country, 
+            description 
+        } = req.body;
         
         await stripe.customers.create({
-            name: "Thomas Delahaye",
-            email: "thomas@passionfruit.be",
+            name: `${firstname} ${lastname}`,
+            email,
             address: {
-                line1: "Vredestraat 31",
+                line1: `${street} ${number}`,
                 line2: "",
-                postal_code: 8310,
-                city: "Brugge",
-                state: "West-Vlaanderen",
-                country: "Belgium"
+                postal_code,
+                city,
+                state,
+                country,
             },
-            description: 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
+            description,
         })
-        .then(customer => res.send(customer))
-        .catch(err => res.json(err));
+        .then(customer => res.status(201).send(customer))
+        .catch(err => res.status(401).json(err));
     }
 
     getCustomers = async (req, res, next) => {
@@ -136,19 +149,43 @@ class StripeController {
     }
 
 
-    /** Subscription */
-
-    
-    /** Invoice */
-
-
-    /** Order */
-
-
     /** Payment */
+    createPayment = async (req, res, next) => {
+        //
+        if (req.headers.authorization !== `TOKEN ${process.env.AUTH_TOKEN}`) {
+            res.status(401).send('Unauthorized');
+        }
 
+        const { APP_URL } = process.env;
+        
+        await stripe.checkout.sessions.create({
+            success_url: `${APP_URL}/payment/success`,
+            cancel_url: `${APP_URL}/payment/canceled`,
+            line_items: [
+              {price: 'price_1LCNZeGoziyMHx0oTHr0bacm', quantity: 1},
+            ],
+            mode: 'payment',
+        })
+        .then(payment => res.status(201).send(payment))
+        .catch(err => res.status(401).json(err));
+    }
+    
+    getPayments = async (req, res, next) => {
+        //
+        if (req.headers.authorization !== `TOKEN ${process.env.AUTH_TOKEN}`) {
+            res.status(401).send('Unauthorized');
+        }
+        
+        await stripe.checkout.sessions.list()
+        .then(payments => res.status(201).send(payments))
+        .catch(err => res.json(err));
+    }
 
     /** Subscription */
+    /** Invoice */
+    /** Order */
+    /** Plans */
+    /** Split Payments */
 
 }
 
