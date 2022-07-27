@@ -11,7 +11,7 @@ class MollieController {
             description: 'New order',
             redirectUrl: `${process.env.APP_URL}/order/id`,
             method: req.body.method,
-            webhookUrl: `${process.env.API_URL}/webhook`,
+            webhookUrl: `${process.env.API_URL}/api/mollie/webhook`,
         })
         .then(payment => res.status(201).send(payment.getCheckoutUrl()))
         .catch(err => res.status(401).json(err));
