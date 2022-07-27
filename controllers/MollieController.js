@@ -9,7 +9,7 @@ class MollieController {
               value: req.body.price, // We enforce the correct number of decimals through strings
             },
             description: 'New order',
-            redirectUrl: `${process.env.APP_URL}/order/id`,
+            redirectUrl: `${process.env.APP_URL}/order`,
             method: req.body.method,
             webhookUrl: `${process.env.API_URL}/api/mollie/webhook`,
         })
@@ -51,7 +51,7 @@ class MollieController {
             },
             locale: 'nl_NL',
             orderNumber: req.body.orderNumber,
-            redirectUrl: `${process.env.APP_URL}/checkout/message`,
+            redirectUrl: `${process.env.APP_URL}/order`,
             method: req.body.method,
             lines: req.body.lines,
             webhookUrl: `${process.env.API_URL}/api/mollie/webhook`,
@@ -64,7 +64,7 @@ class MollieController {
     /** 02. Setup a webhook route */
     webhook = async (req, res, next) => {
         console.log('Event toegekomen met id: ', req.body.id);
-        res.status(201).json(req.body);
+        res.status(201).send(req.body.id);
     }
     
 }
