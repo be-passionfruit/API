@@ -64,7 +64,12 @@ class MollieController {
     /** 02. Setup a webhook route */
     webhook = async (req, res, next) => {
         console.log('Event toegekomen met id: ', req.body.id);
-        res.status(202).json(req.body);
+        // res.status(202).json(req.body);
+
+        const order = await mollieClient.orders.get(req.body.id);
+        console.log('Order: ', order);
+
+        res.status(200).json(order);
     }
     
 }
