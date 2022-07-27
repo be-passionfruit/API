@@ -2,6 +2,8 @@ const { createMollieClient } = require('@mollie/api-client');
 const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE_KEY });
 
 class MollieController {
+
+  /** 01. Create payment */
     createPayment = async (req, res, next) => {
         await mollieClient.payments.create({
             amount: {
@@ -17,7 +19,7 @@ class MollieController {
         .catch(err => res.status(401).json(err));
     }
 
-    /** 01. Create order controller */
+    /** 02. Create order */
     createOrder = async (req, res, next) => {
         await mollieClient.orders.create({
             amount: {
@@ -61,9 +63,9 @@ class MollieController {
         .catch(err => res.json(err));
     }
 
-    /** 02. Setup a webhook route */
-    webhook = async (req, res, next) => {
-      const id = await req.body.id;
+    /** 03. Setup a webhook route */
+    webhook = (req, res, next) => {
+      const id = req.body.id;
       console.log('Event toegekomen met id: ', id);
       res.status(200).send(id);
     }
