@@ -42,7 +42,7 @@ const registerRoutes = (app) => {
     // 03. Orders
     app.post('/api/mollie/order', mollieController.createOrder);
     // 04. Webhok
-    app.get('/api/mollie/webhook', mollieController.webhook);
+    app.post('/api/mollie/webhook', mollieController.webhook);
 }
 
 module.exports = registerRoutes;
