@@ -63,8 +63,8 @@ class MollieController {
 
     /** 02. Setup a webhook route */
     webhook = async (req, res, next) => {
-        console.log("Event received");
-        res.send({ received: true })
+        console.log('Event toegekomen');
+        res.send(req, res);
     }
     
 }
