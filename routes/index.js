@@ -1,10 +1,12 @@
 const UserController = require('../controllers/UserController');
 const HubspotController = require('../controllers/HubspotController');
 const StripeController = require('../controllers/StripeController');
+const MollieController = require('../controllers/MollieController');
 
 const userController = new UserController();
 const hubspotController = new HubspotController();
 const stripeController = new StripeController();
+const mollieController = new MollieController();
 
 const registerRoutes = (app) => {
 
@@ -16,7 +18,6 @@ const registerRoutes = (app) => {
     /** Hubspot */
     // 01. Contacts
     app.post('/api/hubspot/contact', hubspotController.createContact);
-
 
     /** Stripe */
     // 01. Customers
@@ -34,7 +35,14 @@ const registerRoutes = (app) => {
     app.post('/api/stripe/payment', stripeController.createPayment);
     app.get('/api/stripe/payment', stripeController.getPayments);
 
-
+    /** Mollie */
+    // 01. Payments
+    app.post('/api/mollie/payment', mollieController.createPayment);
+    // 02. Customers
+    // 03. Orders
+    app.post('/api/mollie/order', mollieController.createOrder);
+    // 04. Webhok
+    app.get('/api/mollie/webhook', mollieController.webhook);
 }
 
 module.exports = registerRoutes;
