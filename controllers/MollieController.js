@@ -64,7 +64,7 @@ class MollieController {
     }
 
     /** 03. Setup a webhook route */
-    webhook = async (req, res, next) => {
+    webhook = (req, res, next) => {
       try {
         const payment = await mollieClient.payments.get(req.body.id);
     
