@@ -66,7 +66,7 @@ class MollieController {
     /** 03. Setup a webhook route */
     webhook = (req, res, next) => {
       try {
-        const payment = await mollieClient.payments.get(req.body.id);
+        const payment = mollieClient.payments.get(req.body.id);
     
         // Check if payment is paid
         const isPaid = payment.isPaid();
