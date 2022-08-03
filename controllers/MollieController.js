@@ -64,11 +64,22 @@ class MollieController {
     }
 
     /** 03. Setup a webhook route */
-    webhook = (req, res, next) => {
-      const id = req.body.id;
-      console.log('Event toegekomen met id: ', id);
-      res.status(200).send(id);
-    }
+    webhook = (async () => {
+      try {
+        const payment = await mollieClient.payments.get(req.body.id);
+    
+        // Check if payment is paid
+        const isPaid = payment.isPaid();
+    
+        if (isPaid) {
+          console.log('Payment is paid');
+        } else {
+          console.log(`Payment is not paid, but instead it is: ${payment.status}`);
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+    })();
     
 }
 
