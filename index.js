@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const registerRoutes = require('./routes');
 
+const { createMollieClient } = require('@mollie/api-client');
+const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE_KEY });
+
 const app = express();
 const port = process.env.PORT || 3003;
 
